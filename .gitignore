@@ -1,0 +1,33 @@
+# Prerequisites & Build Output
+/build/
+/bin/
+/dist/
+/target/
+
+# Binaries / ROMs
+*.bin
+*.rom
+
+# DASM Diagnostics
+*.sym
+*.lst
+
+# Vim Artifacts
+.*.sw[a-p]
+.*.swo
+.*.swp
+*.sw[a-p]
+*.swo
+*.swp
+.*.un~
+*~
+.*~
+
+# Emacs Auto-save Files
+\#*\#
+
+# Ctags / Symbol Indices
+tags
+tags.lock
+tags.temp
+TAGS

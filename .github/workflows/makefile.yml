@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make universal-ctags
+          git clone https://github.com/dasm-assembler/dasm.git /tmp/dasm
+          make -C /tmp/dasm
+          sudo install /tmp/dasm/bin/dasm /usr/local/bin/dasm
+
+      - name: Test bootstrap script
+        run: |
+          chmod +x bootstrap.sh
+          ./bootstrap.sh
+
+      - name: Verify generated tooling files
+        run: |
+          test -f tags
+
+      - name: Build release target
+        run: make
+
+      - name: Verify ROM output
+        run: test -f ./build/bin/program.bin
